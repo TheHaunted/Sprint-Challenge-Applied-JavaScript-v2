@@ -15,5 +15,9 @@ function Header() {
     let title = document.createElement('h1');
     let temp = document.createElement('span');
 
+    header.classList.add('header');
+    date.classList.add('date');
+    temp.classList.add('temp');
+
     
 }
