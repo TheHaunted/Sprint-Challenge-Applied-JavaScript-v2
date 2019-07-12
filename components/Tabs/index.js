@@ -27,7 +27,6 @@ function tabsComponent(tab){
 
     tabItem.addEventListener('click', () => {
         let tabs = document.querySelectorAll('.tab');
-        console.log(tabs);
         tabs.forEach(tab => tab.classList.remove('active-tab'));
         tabItem.classList.add('active-tab');
     });
