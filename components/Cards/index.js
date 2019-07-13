@@ -21,13 +21,27 @@
 axios.get('https://lambda-times-backend.herokuapp.com/articles')
     .then(data => {
         console.log(data);
-        createCard(data.data);
+        let articles = data.data.articles;
+
+        for(key in articles){
+            articles[key].forEach(object => {
+                createCard(object);
+                
+
+                document.querySelectorAll('.card').forEach(card => {
+                    if(card.dataset.tech === 'node'){
+                        console.log('node');
+                        card.dataset.tech = 'node.js';
+                    }
+                })
+            })
+        }
     })
     .catch(error => console.log(error.message))
 
-function createCard(data){
-    let cardsContainer = document.querySelector('cards-container')
-
+function createCard(dataObject){
+    let cardsContainer = document.querySelector('.cards-container')
+    // console.log(cardsContainer);
     let cardContainer = document.createElement('div');
     let headline = document.createElement('div');
     let author = document.createElement('div')
@@ -36,10 +50,13 @@ function createCard(data){
     let authorName = document.createElement('span');
 
     cardContainer.classList.add('card');
+    cardContainer.dataset.tech = key;
     headline.classList.add('headline');
+    headline.textContent = dataObject.headline;
     author.classList.add('author');
     imgContainer.classList.add('img-container');
-    // img.src = data.article.bootstrap[i].authorPhoto;
+    img.src = dataObject.authorPhoto;
+    authorName.textContent = `By ${dataObject.authorName}`;
 
     cardsContainer.appendChild(cardContainer);
     cardContainer.appendChild(headline);
@@ -50,3 +67,10 @@ function createCard(data){
 
     return cardsContainer;
 }
+
+// document.querySelectorAll('.card').forEach(card => {
+//     if(card.dataset.tech === 'node'){
+//         console.log('node');
+//         card.dataset.tech = 'node.js';
+//     }
+// })
